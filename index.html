@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Game Collection</title>
+    <link rel="stylesheet" href="main-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 My Game Collection</h1>
+            <p>Welcome to my collection of interactive games!</p>
+        </header>
+        
+        <main>
+            <div class="games-grid">
+                <div class="game-card" onclick="openGame('snake-game/snake.html')">
+                    <div class="game-icon">
+                        <canvas id="snake-preview" width="120" height="80"></canvas>
+                    </div>
+                    <div class="game-info">
+                        <h3>🐍 Advanced Snake Game</h3>
+                        <p>Classic snake with obstacles, wizard killer, and border wrapping!</p>
+                        <div class="game-features">
+                            <span class="feature">🎯 Dynamic Obstacles</span>
+                            <span class="feature">🧙‍♂️ Wizard Killer</span>
+                            <span class="feature">💎 Solid Gems</span>
+                            <span class="feature">⚡ 3 Speed Levels</span>
+                        </div>
+                        <button class="play-btn">Play Now!</button>
+                    </div>
+                </div>
+                
+                <!-- Placeholder for future games -->
+                <div class="game-card coming-soon">
+                    <div class="game-icon">
+                        <div class="coming-soon-icon">🚧</div>
+                    </div>
+                    <div class="game-info">
+                        <h3>More Games Coming Soon!</h3>
+                        <p>Stay tuned for more exciting games...</p>
+                        <button class="play-btn disabled" disabled>Coming Soon</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 My Game Collection. Built with ❤️ and JavaScript</p>
+        </footer>
+    </div>
+    
+    <script src="main-script.js"></script>
+</body>
+</html>

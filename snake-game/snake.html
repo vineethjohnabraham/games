@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Snake Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen">
+        <div class="welcome-container">
+            <h1>🐍 Advanced Snake Game</h1>
+            <div class="input-group">
+                <label for="player-name">Player Name:</label>
+                <input type="text" id="player-name" placeholder="Enter your name" maxlength="15">
+            </div>
+            <div class="input-group">
+                <label for="speed-level">Speed Level:</label>
+                <select id="speed-level">
+                    <option value="1">Level 1 (Slow)</option>
+                    <option value="2">Level 2 (Medium)</option>
+                    <option value="3">Level 3 (Fast)</option>
+                </select>
+            </div>
+            <button id="start-game">Start Game</button>
+            
+            <div class="instructions">
+                <h3>🎮 Game Controls:</h3>
+                <p><strong>Movement:</strong> Arrow Keys or WASD</p>
+                <p><strong>Objective:</strong> Eat green gems to score points</p>
+                <p><strong>Warning:</strong> Avoid red obstacles and the wizard following you!</p>
+                <p><strong>Special:</strong> You can pass through borders to the other side</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+        <div class="game-container">
+            <div class="game-info">
+                <div class="player-info">
+                    <h3 id="display-name">Player</h3>
+                    <div class="score-info">
+                        <p>Score: <span id="score">0</span></p>
+                        <p>Speed: Level <span id="display-speed">1</span></p>
+                    </div>
+                </div>
+                <button id="pause-game">Pause</button>
+                <button id="restart-game">Restart</button>
+            </div>
+            <canvas id="game-canvas" width="600" height="400"></canvas>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="screen hidden">
+        <div class="game-over-container">
+            <h1>🎮 Game Over!</h1>
+            <div class="final-score">
+                <p><strong id="final-name">Player</strong></p>
+                <p>Final Score: <span id="final-score">0</span> gems</p>
+                <p>Speed Level: <span id="final-speed">1</span></p>
+            </div>
+            <div class="game-over-buttons">
+                <button id="play-again">Play Again</button>
+                <button id="new-player">New Player</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
