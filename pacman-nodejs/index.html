@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Pac-Man Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="start-screen" id="startScreen">
+            <h1>PAC-MAN</h1>
+            <div class="input-container">
+                <label for="playerName">Enter Your Name:</label>
+                <input type="text" id="playerName" placeholder="Player Name" maxlength="20">
+            </div>
+            <div class="level-selector">
+                <label for="gameLevel">Select Level:</label>
+                <select id="gameLevel">
+                    <option value="1">Level 1 (Slow)</option>
+                    <option value="2">Level 2 (Medium)</option>
+                    <option value="3">Level 3 (Fast)</option>
+                    <option value="4">Level 4 (Very Fast)</option>
+                    <option value="5">Level 5 (Insane)</option>
+                </select>
+            </div>
+            <button id="startButton">Start Game</button>
+        </div>
+
+        <div class="game-screen" id="gameScreen" style="display: none;">
+            <div class="game-header">
+                <div class="score-info">
+                    <span>Player: <span id="displayName"></span></span>
+                    <span>Score: <span id="score">0</span></span>
+                    <span>Level: <span id="currentLevel">1</span></span>
+                    <span>Lives: <span id="lives">3</span></span>
+                </div>
+            </div>
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <div class="controls">
+                <p>Use arrow keys or touch controls to move Pac-Man</p>
+                <p>Collect all dots to advance to the next level!</p>
+                <button id="pauseButton">Pause</button>
+                <button id="restartButton">Restart</button>
+            </div>
+            
+            <!-- Touch Controls for Mobile -->
+            <div class="touch-controls" id="touchControls">
+                <div class="touch-controls-container">
+                    <div class="touch-row">
+                        <button class="touch-btn" id="touchUp">↑</button>
+                    </div>
+                    <div class="touch-row">
+                        <button class="touch-btn" id="touchLeft">←</button>
+                        <button class="touch-btn center" id="touchPause">⏸</button>
+                        <button class="touch-btn" id="touchRight">→</button>
+                    </div>
+                    <div class="touch-row">
+                        <button class="touch-btn" id="touchDown">↓</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-over-screen" id="gameOverScreen" style="display: none;">
+            <h2 id="gameOverTitle">Game Over!</h2>
+            <p>Final Score: <span id="finalScore">0</span></p>
+            <p>Level Reached: <span id="levelReached">1</span></p>
+            <button id="playAgainButton">Play Again</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

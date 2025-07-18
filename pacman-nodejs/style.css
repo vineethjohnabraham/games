@@ -1,0 +1,322 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.game-container {
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Start Screen Styles */
+.start-screen {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    padding: 40px;
+    border: 3px solid #ffff00;
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.5);
+}
+
+.start-screen h1 {
+    font-size: 4em;
+    color: #ffff00;
+    text-shadow: 3px 3px 0px #ff6600;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+}
+
+.input-container, .level-selector {
+    margin: 20px 0;
+}
+
+.input-container label, .level-selector label {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #ffff00;
+}
+
+#playerName {
+    padding: 10px 15px;
+    font-size: 1.1em;
+    border: 2px solid #ffff00;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    text-align: center;
+    width: 250px;
+}
+
+#gameLevel {
+    padding: 10px 15px;
+    font-size: 1.1em;
+    border: 2px solid #ffff00;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    width: 250px;
+}
+
+#startButton, #pauseButton, #restartButton, #playAgainButton {
+    background: linear-gradient(45deg, #ffff00, #ff6600);
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 255, 0, 0.3);
+}
+
+#startButton:hover, #pauseButton:hover, #restartButton:hover, #playAgainButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 0, 0.5);
+}
+
+/* Game Screen Styles */
+.game-screen {
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 20px;
+    padding: 20px;
+    border: 3px solid #ffff00;
+}
+
+.game-header {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 0, 0.1);
+    border-radius: 10px;
+    border: 2px solid #ffff00;
+}
+
+.score-info {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.score-info span {
+    color: #ffff00;
+    margin: 5px;
+}
+
+#gameCanvas {
+    border: 3px solid #ffff00;
+    border-radius: 10px;
+    background: #000;
+    display: block;
+    margin: 0 auto;
+}
+
+.controls {
+    margin-top: 20px;
+    color: #ffff00;
+}
+
+.controls p {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+/* Game Over Screen Styles */
+.game-over-screen {
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 20px;
+    padding: 40px;
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+}
+
+.game-over-screen h2 {
+    font-size: 3em;
+    color: #ff0000;
+    text-shadow: 2px 2px 0px #ffff00;
+    margin-bottom: 20px;
+}
+
+.game-over-screen p {
+    font-size: 1.3em;
+    margin: 15px 0;
+    color: #ffff00;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 10px;
+    }
+    
+    .start-screen h1 {
+        font-size: 2.5em;
+    }
+    
+    #gameCanvas {
+        width: 100%;
+        height: auto;
+        max-width: 380px;
+    }
+    
+    .score-info {
+        font-size: 0.9em;
+    }
+    
+    .controls p {
+        font-size: 1em;
+    }
+    
+    /* Show touch controls on mobile */
+    .touch-controls {
+        display: flex !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .start-screen {
+        padding: 20px;
+    }
+    
+    .start-screen h1 {
+        font-size: 2em;
+        letter-spacing: 2px;
+    }
+    
+    #playerName, #gameLevel {
+        width: 200px;
+        font-size: 1em;
+    }
+    
+    .score-info {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .score-info span {
+        margin: 2px;
+    }
+}
+
+/* Touch Controls */
+.touch-controls {
+    display: none;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 0, 0.1);
+    border-radius: 15px;
+    border: 2px solid #ffff00;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.touch-controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.touch-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.touch-btn {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #ffff00;
+    background: linear-gradient(45deg, #ffff00, #ff6600);
+    color: #000;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(255, 255, 0, 0.3);
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.touch-btn:active {
+    transform: scale(0.9);
+    box-shadow: 0 2px 10px rgba(255, 255, 0, 0.5);
+    background: linear-gradient(45deg, #ff6600, #ffff00);
+}
+
+.touch-btn.center {
+    background: linear-gradient(45deg, #ff0066, #ff6600);
+    border-color: #ff0066;
+    font-size: 20px;
+}
+
+.touch-btn.center:active {
+    background: linear-gradient(45deg, #ff6600, #ff0066);
+}
+
+/* Mobile landscape adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+    .game-header {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .score-info {
+        flex-direction: row;
+        font-size: 0.8em;
+    }
+    
+    .controls p {
+        margin: 5px 0;
+        font-size: 0.9em;
+    }
+    
+    .touch-controls {
+        margin-top: 10px;
+        padding: 15px;
+    }
+    
+    .touch-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+/* Animations */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.5; }
+}
+
+.blinking {
+    animation: blink 0.5s infinite;
+}
