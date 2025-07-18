@@ -38,6 +38,12 @@ class PacManGame {
         this.lastGhostMoveTime = 0;
         this.animationId = null;
         
+        // Power pellet effects
+        this.powerMode = false;
+        this.powerModeTimer = 0;
+        this.powerModeDuration = 10000; // 10 seconds
+        this.ghostsVulnerable = false;
+        
         // Game map (0 = wall, 1 = dot, 2 = empty, 3 = power pellet, 4 = ghost area)
         this.originalMap = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -77,6 +83,7 @@ class PacManGame {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
         this.touchControls = document.getElementById('touchControls');
+        this.powerModeIndicator = document.getElementById('powerModeIndicator');
         
         // Touch gesture tracking
         this.touchStartX = 0;
@@ -267,11 +274,16 @@ class PacManGame {
         
         // Reset ghosts
         this.ghosts = [
-            { x: 9, y: 9, direction: 'up', color: '#ff0000', name: 'blinky' },
-            { x: 8, y: 9, direction: 'down', color: '#ffb8ff', name: 'pinky' },
-            { x: 10, y: 9, direction: 'up', color: '#00ffff', name: 'inky' },
-            { x: 9, y: 10, direction: 'left', color: '#ffb852', name: 'clyde' }
+            { x: 9, y: 9, direction: 'up', color: '#ff0000', name: 'blinky', originalColor: '#ff0000', vulnerable: false, eaten: false },
+            { x: 8, y: 9, direction: 'down', color: '#ffb8ff', name: 'pinky', originalColor: '#ffb8ff', vulnerable: false, eaten: false },
+            { x: 10, y: 9, direction: 'up', color: '#00ffff', name: 'inky', originalColor: '#00ffff', vulnerable: false, eaten: false },
+            { x: 9, y: 10, direction: 'left', color: '#ffb852', name: 'clyde', originalColor: '#ffb852', vulnerable: false, eaten: false }
         ];
+        
+        // Reset power mode
+        this.powerMode = false;
+        this.powerModeTimer = 0;
+        this.ghostsVulnerable = false;
     }
     
     handleKeyPress(e) {
@@ -363,9 +375,11 @@ class PacManGame {
                 this.player.score += 10;
                 this.dotsRemaining--;
             } else if (this.gameMap[newY][newX] === 3) {
+                // Power pellet eaten
                 this.gameMap[newY][newX] = 2;
                 this.player.score += 50;
                 this.dotsRemaining--;
+                this.activatePowerMode();
             }
             
             this.updateUI();
@@ -379,10 +393,74 @@ class PacManGame {
         this.lastMoveTime = currentTime;
     }
     
+    activatePowerMode() {
+        this.powerMode = true;
+        this.powerModeTimer = this.powerModeDuration;
+        this.ghostsVulnerable = true;
+        
+        // Make all ghosts vulnerable
+        this.ghosts.forEach(ghost => {
+            if (!ghost.eaten) {
+                ghost.vulnerable = true;
+                ghost.color = '#0066ff'; // Blue color for vulnerable ghosts
+            }
+        });
+        
+        // Show power mode indicator
+        this.powerModeIndicator.style.display = 'inline';
+        
+        // Visual feedback
+        console.log('Power Mode Activated!');
+    }
+    
+    updatePowerMode(currentTime) {
+        if (this.powerMode) {
+            this.powerModeTimer -= 16; // Approximate frame time
+            
+            // Flash warning when power mode is about to end
+            if (this.powerModeTimer <= 3000 && this.powerModeTimer > 0) {
+                const flashInterval = Math.floor(this.powerModeTimer / 200) % 2;
+                this.ghosts.forEach(ghost => {
+                    if (ghost.vulnerable && !ghost.eaten) {
+                        ghost.color = flashInterval ? '#0066ff' : '#ffffff';
+                    }
+                });
+            }
+            
+            // End power mode
+            if (this.powerModeTimer <= 0) {
+                this.endPowerMode();
+            }
+        }
+    }
+    
+    endPowerMode() {
+        this.powerMode = false;
+        this.powerModeTimer = 0;
+        this.ghostsVulnerable = false;
+        
+        // Hide power mode indicator
+        this.powerModeIndicator.style.display = 'none';
+        
+        // Restore ghost colors and make them dangerous again
+        this.ghosts.forEach(ghost => {
+            if (!ghost.eaten) {
+                ghost.vulnerable = false;
+                ghost.color = ghost.originalColor;
+            }
+        });
+    }
+    
     moveGhosts(currentTime) {
         if (currentTime - this.lastGhostMoveTime < this.gameSpeed + 50) return;
         
         this.ghosts.forEach(ghost => {
+            if (ghost.eaten) {
+                // Eaten ghosts move back to center faster
+                this.moveGhostToCenter(ghost);
+                return;
+            }
+            
             const directions = ['up', 'down', 'left', 'right'];
             let possibleMoves = [];
             
@@ -407,24 +485,40 @@ class PacManGame {
             });
             
             if (possibleMoves.length > 0) {
-                // Simple AI: sometimes move towards Pac-Man, sometimes random
                 let chosenMove;
-                if (Math.random() < 0.3) {
-                    // Move towards Pac-Man
+                
+                if (ghost.vulnerable) {
+                    // Vulnerable ghosts try to run away from Pac-Man
                     let bestMove = possibleMoves[0];
                     let bestDistance = this.getDistance(bestMove.x, bestMove.y, this.pacman.x, this.pacman.y);
                     
                     possibleMoves.forEach(move => {
                         let distance = this.getDistance(move.x, move.y, this.pacman.x, this.pacman.y);
-                        if (distance < bestDistance) {
+                        if (distance > bestDistance) {
                             bestDistance = distance;
                             bestMove = move;
                         }
                     });
                     chosenMove = bestMove;
                 } else {
-                    // Random move
-                    chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+                    // Normal behavior: sometimes move towards Pac-Man, sometimes random
+                    if (Math.random() < 0.3) {
+                        // Move towards Pac-Man
+                        let bestMove = possibleMoves[0];
+                        let bestDistance = this.getDistance(bestMove.x, bestMove.y, this.pacman.x, this.pacman.y);
+                        
+                        possibleMoves.forEach(move => {
+                            let distance = this.getDistance(move.x, move.y, this.pacman.x, this.pacman.y);
+                            if (distance < bestDistance) {
+                                bestDistance = distance;
+                                bestMove = move;
+                            }
+                        });
+                        chosenMove = bestMove;
+                    } else {
+                        // Random move
+                        chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+                    }
                 }
                 
                 ghost.x = chosenMove.x;
@@ -436,26 +530,90 @@ class PacManGame {
         this.lastGhostMoveTime = currentTime;
     }
     
+    moveGhostToCenter(ghost) {
+        // Move eaten ghost back to center (9, 9)
+        const centerX = 9;
+        const centerY = 9;
+        
+        if (ghost.x < centerX) ghost.x++;
+        else if (ghost.x > centerX) ghost.x--;
+        
+        if (ghost.y < centerY) ghost.y++;
+        else if (ghost.y > centerY) ghost.y--;
+        
+        // If ghost reached center, respawn it
+        if (ghost.x === centerX && ghost.y === centerY) {
+            ghost.eaten = false;
+            ghost.vulnerable = false;
+            ghost.color = ghost.originalColor;
+        }
+    }
+    
     getDistance(x1, y1, x2, y2) {
         return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }
     
     checkCollisions() {
-        this.ghosts.forEach(ghost => {
+        this.ghosts.forEach((ghost, index) => {
             if (ghost.x === this.pacman.x && ghost.y === this.pacman.y) {
-                this.player.lives--;
-                this.updateUI();
-                
-                if (this.player.lives <= 0) {
-                    this.gameOver();
-                } else {
-                    // Reset positions
-                    this.pacman.x = 9;
-                    this.pacman.y = 15;
-                    ghost.x = 9;
-                    ghost.y = 9;
+                if (ghost.vulnerable && !ghost.eaten) {
+                    // Pac-Man eats the ghost
+                    ghost.eaten = true;
+                    ghost.vulnerable = false;
+                    ghost.color = '#666666'; // Gray color for eaten ghost
+                    this.player.score += 200; // Bonus points for eating ghost
+                    this.updateUI();
+                    
+                    // Visual feedback
+                    console.log(`Ghost ${ghost.name} eaten! +200 points`);
+                } else if (!ghost.eaten) {
+                    // Ghost kills Pac-Man
+                    this.pacmanDies();
                 }
             }
+        });
+    }
+    
+    pacmanDies() {
+        this.player.lives--;
+        this.updateUI();
+        
+        // End power mode if active
+        if (this.powerMode) {
+            this.endPowerMode();
+        }
+        
+        if (this.player.lives <= 0) {
+            this.gameOver();
+        } else {
+            // Reset positions after a brief pause
+            setTimeout(() => {
+                this.resetPositions();
+            }, 1000);
+        }
+    }
+    
+    resetPositions() {
+        // Reset Pac-Man position
+        this.pacman.x = 9;
+        this.pacman.y = 15;
+        this.pacman.direction = 'right';
+        this.pacman.nextDirection = 'right';
+        
+        // Reset ghost positions
+        this.ghosts.forEach((ghost, index) => {
+            const startPositions = [
+                { x: 9, y: 9 },   // blinky
+                { x: 8, y: 9 },   // pinky
+                { x: 10, y: 9 },  // inky
+                { x: 9, y: 10 }   // clyde
+            ];
+            
+            ghost.x = startPositions[index].x;
+            ghost.y = startPositions[index].y;
+            ghost.eaten = false;
+            ghost.vulnerable = false;
+            ghost.color = ghost.originalColor;
         });
     }
     
@@ -573,6 +731,17 @@ class PacManGame {
         const pixelY = ghost.y * this.cellSize + this.cellSize/2;
         const radius = this.cellSize/2 - 2;
         
+        // Don't draw eaten ghosts that are invisible
+        if (ghost.eaten && ghost.color === '#666666') {
+            // Draw a faint outline for eaten ghosts
+            this.ctx.strokeStyle = '#333';
+            this.ctx.lineWidth = 1;
+            this.ctx.beginPath();
+            this.ctx.arc(pixelX, pixelY, radius, 0, Math.PI * 2);
+            this.ctx.stroke();
+            return;
+        }
+        
         this.ctx.fillStyle = ghost.color;
         this.ctx.beginPath();
         this.ctx.arc(pixelX, pixelY, radius, Math.PI, 0);
@@ -596,6 +765,14 @@ class PacManGame {
         this.ctx.arc(pixelX - 4, pixelY - 4, 1, 0, Math.PI * 2);
         this.ctx.arc(pixelX + 4, pixelY - 4, 1, 0, Math.PI * 2);
         this.ctx.fill();
+        
+        // Add scared face for vulnerable ghosts
+        if (ghost.vulnerable && !ghost.eaten) {
+            this.ctx.fillStyle = '#fff';
+            this.ctx.beginPath();
+            this.ctx.arc(pixelX, pixelY + 2, 2, 0, Math.PI);
+            this.ctx.fill();
+        }
     }
     
     gameLoop() {
@@ -603,6 +780,7 @@ class PacManGame {
         
         const currentTime = Date.now();
         
+        this.updatePowerMode(currentTime);
         this.movePacman(currentTime);
         this.moveGhosts(currentTime);
         this.checkCollisions();
@@ -615,6 +793,7 @@ class PacManGame {
         this.gameState = 'playing';
         this.player.score = 0;
         this.player.lives = 3;
+        this.endPowerMode(); // Make sure power mode is off
         this.resetMap();
         this.updateUI();
         document.getElementById('pauseButton').textContent = 'Pause';

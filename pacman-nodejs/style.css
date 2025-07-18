@@ -119,6 +119,13 @@ body {
     margin: 5px;
 }
 
+#powerModeIndicator {
+    color: #ff00ff !important;
+    font-weight: bold;
+    animation: blink 0.5s infinite;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
 #gameCanvas {
     border: 3px solid #ffff00;
     border-radius: 10px;
