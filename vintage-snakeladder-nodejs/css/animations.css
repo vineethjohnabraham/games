@@ -1,0 +1,476 @@
+/* Animation Styles */
+
+/* Entrance Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.slide-in-up {
+    animation: slideInUp 0.5s ease-out forwards;
+}
+
+.slide-in-down {
+    animation: slideInDown 0.5s ease-out forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.5s ease-out forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.5s ease-out forwards;
+}
+
+/* Exit Animations */
+.fade-out {
+    animation: fadeOut 0.3s ease-out forwards;
+}
+
+.slide-out-up {
+    animation: slideOutUp 0.3s ease-out forwards;
+}
+
+.slide-out-down {
+    animation: slideOutDown 0.3s ease-out forwards;
+}
+
+/* Button Animations */
+.button-press {
+    animation: buttonPress 0.2s ease-out;
+}
+
+.button-success {
+    animation: buttonSuccess 0.6s ease-out;
+}
+
+.button-error {
+    animation: buttonError 0.6s ease-out;
+}
+
+/* Dice Animations */
+.dice-shake {
+    animation: diceShake 0.5s ease-in-out;
+}
+
+.dice-bounce {
+    animation: diceBounce 0.8s ease-out;
+}
+
+/* Player Piece Animations */
+.piece-spawn {
+    animation: pieceSpawn 0.8s ease-out;
+}
+
+.piece-jump {
+    animation: pieceJump 0.6s ease-out;
+}
+
+.piece-celebrate {
+    animation: pieceCelebrate 2s ease-in-out infinite;
+}
+
+/* Board Animations */
+.board-shake {
+    animation: boardShake 0.5s ease-in-out;
+}
+
+.square-pop {
+    animation: squarePop 0.4s ease-out;
+}
+
+.square-flash {
+    animation: squareFlash 1s ease-in-out;
+}
+
+/* Snake Animations */
+.snake-attack {
+    animation: snakeAttack 1.5s ease-in-out;
+}
+
+.snake-hiss-effect {
+    animation: snakeHissEffect 2s ease-out;
+}
+
+/* Ladder Animations */
+.ladder-glow {
+    animation: ladderGlow 1.5s ease-in-out;
+}
+
+.ladder-sparkle {
+    animation: ladderSparkle 2s ease-out;
+}
+
+/* Win Animations */
+.confetti {
+    animation: confetti 3s ease-out;
+}
+
+.trophy-bounce {
+    animation: trophyBounce 2s ease-in-out infinite;
+}
+
+.text-rainbow {
+    animation: textRainbow 3s ease-in-out infinite;
+}
+
+/* Notification Animations */
+.notification-slide {
+    animation: notificationSlide 0.5s ease-out;
+}
+
+.notification-pulse {
+    animation: notificationPulse 2s ease-in-out infinite;
+}
+
+/* Loading Animations */
+.spinner {
+    animation: spinner 1s linear infinite;
+}
+
+.dots-loading {
+    animation: dotsLoading 1.5s ease-in-out infinite;
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideInUp {
+    from { 
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from { 
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from { 
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from { 
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutUp {
+    from { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to { 
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}
+
+@keyframes slideOutDown {
+    from { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to { 
+        opacity: 0;
+        transform: translateY(30px);
+    }
+}
+
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+@keyframes buttonSuccess {
+    0% { background-color: var(--success-color); transform: scale(1); }
+    50% { background-color: #4CAF50; transform: scale(1.05); }
+    100% { background-color: var(--success-color); transform: scale(1); }
+}
+
+@keyframes buttonError {
+    0% { background-color: var(--danger-color); transform: scale(1); }
+    25% { background-color: #f44336; transform: scale(1.05) translateX(-2px); }
+    75% { background-color: #f44336; transform: scale(1.05) translateX(2px); }
+    100% { background-color: var(--danger-color); transform: scale(1); }
+}
+
+@keyframes diceShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px) rotate(-5deg); }
+    20%, 40%, 60%, 80% { transform: translateX(5px) rotate(5deg); }
+}
+
+@keyframes diceBounce {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-15px) rotate(90deg); }
+    50% { transform: translateY(0) rotate(180deg); }
+    75% { transform: translateY(-8px) rotate(270deg); }
+    100% { transform: translateY(0) rotate(360deg); }
+}
+
+@keyframes pieceSpawn {
+    0% { 
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.3) rotate(180deg);
+    }
+    100% { 
+        opacity: 1;
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+@keyframes pieceJump {
+    0% { transform: translateY(0) scale(1); }
+    30% { transform: translateY(-20px) scale(1.1); }
+    60% { transform: translateY(-10px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes pieceCelebrate {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.2) rotate(5deg); }
+    50% { transform: scale(1.1) rotate(-5deg); }
+    75% { transform: scale(1.15) rotate(3deg); }
+}
+
+@keyframes boardShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+    20%, 40%, 60%, 80% { transform: translateX(3px); }
+}
+
+@keyframes squarePop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+@keyframes squareFlash {
+    0%, 100% { background-color: inherit; }
+    50% { background-color: #ffeb3b; }
+}
+
+@keyframes snakeAttack {
+    0% { transform: scale(1); filter: hue-rotate(0deg); }
+    25% { transform: scale(1.1); filter: hue-rotate(90deg); }
+    50% { transform: scale(1.05); filter: hue-rotate(180deg); }
+    75% { transform: scale(1.08); filter: hue-rotate(270deg); }
+    100% { transform: scale(1); filter: hue-rotate(360deg); }
+}
+
+@keyframes snakeHissEffect {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(244, 67, 54, 0.7);
+    }
+    50% { 
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(244, 67, 54, 0.7);
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(244, 67, 54, 0.7);
+    }
+}
+
+@keyframes ladderGlow {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(33, 150, 243, 0.7);
+    }
+    50% { 
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(33, 150, 243, 0.7);
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(33, 150, 243, 0.7);
+    }
+}
+
+@keyframes ladderSparkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes confetti {
+    0% { 
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes trophyBounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+    40% { transform: translateY(-15px) scale(1.1); }
+    60% { transform: translateY(-8px) scale(1.05); }
+}
+
+@keyframes textRainbow {
+    0% { color: #ff0000; }
+    16.66% { color: #ff8000; }
+    33.33% { color: #ffff00; }
+    50% { color: #00ff00; }
+    66.66% { color: #0080ff; }
+    83.33% { color: #8000ff; }
+    100% { color: #ff0000; }
+}
+
+@keyframes notificationSlide {
+    0% { 
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% { 
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes notificationPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+}
+
+@keyframes spinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes dotsLoading {
+    0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+/* Path Animation for Piece Movement */
+@keyframes movePath {
+    0% { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
+}
+
+/* Special Effects Classes */
+.glitch {
+    animation: glitch 0.5s ease-in-out;
+}
+
+@keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+}
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.wiggle {
+    animation: wiggle 0.5s ease-in-out;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+}
+
+/* Transition Classes */
+.smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bouncy-transition {
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.elastic-transition {
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Animation States */
+.animate-in {
+    animation-play-state: running;
+}
+
+.animate-paused {
+    animation-play-state: paused;
+}
+
+.animate-reverse {
+    animation-direction: reverse;
+}
+
+/* Performance Optimizations */
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.will-animate {
+    will-change: transform, opacity;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .confetti,
+    .snake-attack,
+    .ladder-glow,
+    .piece-celebrate,
+    .text-rainbow {
+        animation: none;
+    }
+    
+    .smooth-transition,
+    .bouncy-transition,
+    .elastic-transition {
+        transition: none;
+    }
+}

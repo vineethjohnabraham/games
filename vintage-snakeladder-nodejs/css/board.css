@@ -1,0 +1,342 @@
+/* Game Board Styles */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 2px;
+    background: #2c3e50;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1;
+    position: relative;
+}
+
+.board-square {
+    background: var(--card-background);
+    border: 2px solid #ecf0f1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--text-color);
+    position: relative;
+    transition: var(--transition);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.board-square:hover {
+    background: #f8f9fa;
+    transform: scale(1.02);
+}
+
+.board-square.start {
+    background: linear-gradient(135deg, #4CAF50, #66bb6a);
+    color: white;
+    font-weight: bold;
+}
+
+.board-square.finish {
+    background: linear-gradient(135deg, #ff6b35, #ff8a65);
+    color: white;
+    font-weight: bold;
+    animation: finish-glow 2s infinite;
+}
+
+/* Snake and Ladder Squares */
+.board-square.snake-head {
+    background: linear-gradient(135deg, #f44336, #ef5350);
+    color: white;
+    position: relative;
+}
+
+.board-square.snake-tail {
+    background: linear-gradient(135deg, #ffeb3b, #fff176);
+    color: #333;
+}
+
+.board-square.ladder-bottom {
+    background: linear-gradient(135deg, #2196F3, #42a5f5);
+    color: white;
+}
+
+.board-square.ladder-top {
+    background: linear-gradient(135deg, #9C27B0, #ba68c8);
+    color: white;
+}
+
+/* Snake and Ladder Visual Elements */
+.board-square.snake-head::before {
+    content: '🐍';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.8rem;
+}
+
+.board-square.snake-tail::before {
+    content: '🐍';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.6rem;
+    opacity: 0.7;
+}
+
+.board-square.ladder-bottom::before {
+    content: '🪜';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.8rem;
+}
+
+.board-square.ladder-top::before {
+    content: '🪜';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.6rem;
+    opacity: 0.7;
+}
+
+/* Player Pieces */
+.player-piece {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 3px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.player-piece.player1 {
+    background: #f44336;
+    color: white;
+    top: 5px;
+    left: 5px;
+}
+
+.player-piece.player2 {
+    background: #2196F3;
+    color: white;
+    top: 5px;
+    right: 5px;
+}
+
+.player-piece.active {
+    animation: piece-glow 1.5s infinite;
+    transform: scale(1.1);
+}
+
+.player-piece.moving {
+    z-index: 20;
+    transform: scale(1.2);
+    animation: piece-move 0.5s ease-in-out;
+}
+
+/* Dice Styles */
+.dice {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border: 3px solid var(--primary-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+    cursor: pointer;
+}
+
+.dice-face {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.dice.rolling {
+    animation: dice-roll 1.6s ease-out;
+}
+
+.dice:hover {
+    transform: scale(1.05);
+}
+
+/* Snake and Ladder Path Lines */
+.snake-path,
+.ladder-path {
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.snake-path {
+    border: 3px dashed #f44336;
+    opacity: 0.6;
+}
+
+.ladder-path {
+    border: 3px solid #2196F3;
+    opacity: 0.6;
+}
+
+/* Special Effects */
+.square-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 235, 59, 0.5);
+    border-radius: 8px;
+    animation: highlight-pulse 1s infinite;
+    pointer-events: none;
+}
+
+/* Particle Effects */
+.particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 15;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    animation: particle-burst 1s ease-out forwards;
+}
+
+/* Board Animations */
+@keyframes finish-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 107, 53, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 107, 53, 0.8);
+    }
+}
+
+@keyframes piece-glow {
+    0%, 100% {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+}
+
+@keyframes piece-move {
+    0% { transform: scale(1.2) rotate(0deg); }
+    50% { transform: scale(1.3) rotate(180deg); }
+    100% { transform: scale(1.2) rotate(360deg); }
+}
+
+@keyframes dice-roll {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(1.1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    75% { transform: rotate(270deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes highlight-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes particle-burst {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--dx, 0), var(--dy, 0)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Snake Movement Animation */
+.snake-slide {
+    animation: snake-slide 1.2s ease-in-out;
+}
+
+@keyframes snake-slide {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+/* Ladder Climb Animation */
+.ladder-climb {
+    animation: ladder-climb 1s ease-in-out;
+}
+
+@keyframes ladder-climb {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-15px) scale(1.1); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* Board Square Numbers */
+.square-number {
+    font-size: 0.9rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* Special square styling based on position */
+.board-square[data-position="1"] {
+    background: linear-gradient(135deg, #4CAF50, #66bb6a);
+    color: white;
+}
+
+.board-square[data-position="100"] {
+    background: linear-gradient(135deg, #ff6b35, #ff8a65);
+    color: white;
+    animation: finish-glow 2s infinite;
+}
+
+/* Win effect */
+.board-square.winner-square {
+    animation: winner-celebration 2s infinite;
+}
+
+@keyframes winner-celebration {
+    0%, 100% { 
+        transform: scale(1);
+        background: linear-gradient(135deg, #ff6b35, #ff8a65);
+    }
+    25% { 
+        transform: scale(1.1);
+        background: linear-gradient(135deg, #4CAF50, #66bb6a);
+    }
+    50% { 
+        transform: scale(1.05);
+        background: linear-gradient(135deg, #2196F3, #42a5f5);
+    }
+    75% { 
+        transform: scale(1.08);
+        background: linear-gradient(135deg, #9C27B0, #ba68c8);
+    }
+}
