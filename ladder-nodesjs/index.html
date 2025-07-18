@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏁 Garage Race Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="header">
+                <h1 class="title">🏁 GARAGE RACE ADVENTURE 🏁</h1>
+                <div class="subtitle">Rev up your engines for the ultimate racing board game!</div>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <span class="icon">🚗</span>
+                    <span>Race to position 100!</span>
+                </div>
+                <div class="feature">
+                    <span class="icon">⚡</span>
+                    <span>Hit turbo boosts to speed ahead!</span>
+                </div>
+                <div class="feature">
+                    <span class="icon">🛢️</span>
+                    <span>Avoid oil spills that slow you down!</span>
+                </div>
+                <div class="feature">
+                    <span class="icon">🔧</span>
+                    <span>Land on special garage events!</span>
+                </div>
+            </div>
+            
+            <button id="start-game-btn" class="btn-primary">🏎️ START RACING</button>
+        </div>
+
+        <!-- Player Setup Screen -->
+        <div id="setup-screen" class="screen">
+            <div class="header">
+                <h2>🏁 Setup Your Race</h2>
+            </div>
+            
+            <div class="setup-content">
+                <div class="player-count-section">
+                    <label for="player-count">How many racers? (2-6 players)</label>
+                    <select id="player-count" class="select-input">
+                        <option value="2">2 Players</option>
+                        <option value="3">3 Players</option>
+                        <option value="4">4 Players</option>
+                        <option value="5">5 Players</option>
+                        <option value="6">6 Players</option>
+                    </select>
+                </div>
+                
+                <div id="player-names-section" class="player-names">
+                    <!-- Player name inputs will be generated here -->
+                </div>
+                
+                <button id="start-race-btn" class="btn-primary">🚀 START RACE</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-container">
+                <!-- Left Side - Game Board -->
+                <div class="board-section">
+                    <div class="board-header">
+                        <h2>🏁 Race Track</h2>
+                        <div class="board-info">Race to square 100 to win!</div>
+                    </div>
+                    <div id="board-grid" class="board-grid">
+                        <!-- Board squares will be generated here -->
+                    </div>
+                </div>
+                
+                <!-- Right Side - Game Controls -->
+                <div class="controls-section">
+                    <!-- Game Title -->
+                    <div class="game-title">
+                        <h1>🏎️ Garage Race Adventure</h1>
+                    </div>
+                    
+                    <!-- Current Turn Panel -->
+                    <div class="panel current-turn-panel">
+                        <h3>🎯 Current Turn</h3>
+                        <div id="current-player-display" class="current-player-display">
+                            <span id="current-player-car" class="player-car-large">🏎️</span>
+                            <div class="player-info">
+                                <span id="current-player-name" class="player-name">Player 1</span>
+                                <span class="turn-text">Ready to roll!</span>
+                            </div>
+                        </div>
+                        
+                        <div class="dice-section">
+                            <div id="dice-display" class="dice">🎲</div>
+                            <button id="roll-dice-btn" class="btn-roll">🎲 ROLL DICE</button>
+                        </div>
+                        
+                        <div id="dice-result" class="dice-result"></div>
+                    </div>
+                    
+                    <!-- Game Message Panel -->
+                    <div class="panel message-panel">
+                        <h3>📢 Game Updates</h3>
+                        <div id="game-message" class="game-message">Welcome! Roll the dice to start racing!</div>
+                    </div>
+                    
+                    <!-- Players Status Panel -->
+                    <div class="panel players-panel">
+                        <h3>🏁 Racers</h3>
+                        <div id="players-status" class="players-status">
+                            <!-- Player status will be generated here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Legend Panel -->
+                    <div class="panel legend-panel">
+                        <h3>🎮 Track Legend</h3>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <span class="legend-icon turbo">⚡</span>
+                                <span>Turbo Boost</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon oil">🛢️</span>
+                                <span>Oil Spill</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon special">🔧</span>
+                                <span>Pit Stop</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon special">⛽</span>
+                                <span>Fuel Station</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon special">🏆</span>
+                                <span>Championship</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Winner Screen -->
+        <div id="winner-screen" class="screen">
+            <div class="winner-content">
+                <h1 class="winner-title">🏆 RACE FINISHED! 🏆</h1>
+                <div id="winner-announcement" class="winner-announcement"></div>
+                <div id="final-standings" class="final-standings"></div>
+                <button id="play-again-btn" class="btn-primary">🏁 RACE AGAIN</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-animation">
+        <div class="road-lines"></div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

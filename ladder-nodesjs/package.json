@@ -1,0 +1,18 @@
+{
+  "name": "garage-race-adventure",
+  "version": "1.0.0",
+  "description": "An innovative garage-themed racing board game",
+  "main": "game.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "console": "node console-game.js"
+  },
+  "keywords": ["game", "racing", "garage", "board-game", "multiplayer"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "readline-sync": "^1.4.10",
+    "chalk": "^4.1.2"
+  }
+}
