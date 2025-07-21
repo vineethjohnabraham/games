@@ -7,15 +7,14 @@ class Game {
         this.gameState = 'menu'; // menu, playing, paused, gameOver
         this.animationId = null;
         
-        // Game settings
-        this.winningScore = 7;
+        // Game settings (removed winningScore - endless gameplay)
         this.paddleWidth = 15;
         this.paddleHeight = 80;
         this.ballRadius = 8;
         
-        // Players
-        this.player1 = { name: 'Player 1', score: 0 };
-        this.player2 = { name: 'Player 2', score: 0 };
+        // Players (removed scoring)
+        this.player1 = { name: 'Player 1' };
+        this.player2 = { name: 'Player 2' };
         
         // Game objects
         this.leftPaddle = null;
@@ -220,9 +219,7 @@ class Game {
     }
 
     start() {
-        this.player1.score = 0;
-        this.player2.score = 0;
-        
+        // No scores to reset - endless gameplay
         this.updateScoreDisplay();
         this.resetBall();
         this.resetPaddles();
@@ -256,8 +253,7 @@ class Game {
     }
 
     restart() {
-        this.player1.score = 0;
-        this.player2.score = 0;
+        // No scores to reset - endless gameplay
         this.updateScoreDisplay();
         this.resetBall();
         this.resetPaddles();
@@ -299,9 +295,9 @@ class Game {
     
     updateScoreDisplay() {
         document.getElementById('player1NameDisplay').textContent = this.player1.name;
-        document.getElementById('player1Score').textContent = this.player1.score;
+        document.getElementById('player1Score').textContent = '∞'; // Endless gameplay symbol
         document.getElementById('player2NameDisplay').textContent = this.player2.name;
-        document.getElementById('player2Score').textContent = this.player2.score;
+        document.getElementById('player2Score').textContent = '∞'; // Endless gameplay symbol
     }
     
     gameLoop(currentTime = 0) {
@@ -338,24 +334,8 @@ class Game {
         this.ball.checkPaddleCollision(this.leftPaddle);
         this.ball.checkPaddleCollision(this.rightPaddle);
         
-        // Check scoring
+        // Check if ball goes out of bounds - just reset (no scoring)
         if (this.ball.isOutOfBounds()) {
-            const outSide = this.ball.getOutSide();
-            
-            if (outSide === 'left') {
-                this.player2.score++;
-            } else if (outSide === 'right') {
-                this.player1.score++;
-            }
-            
-            this.updateScoreDisplay();
-            
-            // Check for game over
-            if (this.player1.score >= this.winningScore || this.player2.score >= this.winningScore) {
-                this.endGame();
-                return;
-            }
-            
             // Reset ball for next round
             setTimeout(() => {
                 if (this.gameState === 'playing') {

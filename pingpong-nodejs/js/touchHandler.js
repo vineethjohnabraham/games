@@ -48,34 +48,38 @@ class TouchHandler {
     }
     
     setupTouchEvents() {
-        // Prevent default touch behaviors
-        document.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
-        document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
-        document.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
+        // Prevent default touch behaviors only on touch control areas, not the entire document
+        // This allows buttons to work properly on mobile
         
         // Left touch area events
         this.leftTouchArea.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent only for game controls
             this.handleLeftTouchStart(e);
         });
         
         this.leftTouchArea.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent only for game controls
             this.handleLeftTouchMove(e);
         });
         
         this.leftTouchArea.addEventListener('touchend', (e) => {
+            e.preventDefault(); // Prevent only for game controls
             this.handleLeftTouchEnd(e);
         });
         
         // Right touch area events
         this.rightTouchArea.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent only for game controls
             this.handleRightTouchStart(e);
         });
         
         this.rightTouchArea.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent only for game controls
             this.handleRightTouchMove(e);
         });
         
         this.rightTouchArea.addEventListener('touchend', (e) => {
+            e.preventDefault(); // Prevent only for game controls
             this.handleRightTouchEnd(e);
         });
     }
