@@ -267,6 +267,11 @@ body {
     color: #ffd700;
 }
 
+/* Hide score numbers when display is set to none */
+.player-score span:last-child[style*="display: none"] {
+    display: none !important;
+}
+
 .vs {
     font-size: 1.5rem;
     font-weight: bold;

@@ -327,11 +327,9 @@ class GameApp {
             winnerDisplay.innerHTML = `<h3>🎉 ${winner} Wins!</h3>`;
         }
         
+        // Hide final score display since we don't track scores
         if (finalScore) {
-            finalScore.innerHTML = `
-                <p>Final Score:</p>
-                <p>${this.game.player1.name}: ${player1Score} - ${this.game.player2.name}: ${player2Score}</p>
-            `;
+            finalScore.style.display = 'none';
         }
         
         this.showScreen('gameOverScreen');

@@ -295,9 +295,9 @@ class Game {
     
     updateScoreDisplay() {
         document.getElementById('player1NameDisplay').textContent = this.player1.name;
-        document.getElementById('player1Score').textContent = '∞'; // Endless gameplay symbol
+        document.getElementById('player1Score').style.display = 'none'; // Hide score
         document.getElementById('player2NameDisplay').textContent = this.player2.name;
-        document.getElementById('player2Score').textContent = '∞'; // Endless gameplay symbol
+        document.getElementById('player2Score').style.display = 'none'; // Hide score
     }
     
     gameLoop(currentTime = 0) {
@@ -334,14 +334,23 @@ class Game {
         this.ball.checkPaddleCollision(this.leftPaddle);
         this.ball.checkPaddleCollision(this.rightPaddle);
         
-        // Check if ball goes out of bounds - just reset (no scoring)
+        // Check if ball goes out of bounds - game over when someone misses
         if (this.ball.isOutOfBounds()) {
-            // Reset ball for next round
-            setTimeout(() => {
-                if (this.gameState === 'playing') {
-                    this.resetBall();
-                }
-            }, 1000);
+            const outSide = this.ball.getOutSide();
+            let winner;
+            
+            if (outSide === 'left') {
+                // Ball went out on left side, Player 2 wins
+                winner = this.player2.name;
+            } else if (outSide === 'right') {
+                // Ball went out on right side, Player 1 wins
+                winner = this.player1.name;
+            }
+            
+            if (winner) {
+                this.endGame(winner);
+                return;
+            }
         }
     }
     
@@ -372,19 +381,17 @@ class Game {
         this.ctx.setLineDash([]);
     }
     
-    endGame() {
+    endGame(winnerName) {
         this.gameState = 'gameOver';
         cancelAnimationFrame(this.animationId);
         
-        const winner = this.player1.score >= this.winningScore ? this.player1 : this.player2;
-        
-        // Use the global showGameOver function if available
+        // Use the global showGameOver function if available (without scores)
         if (typeof window.showGameOver === 'function') {
-            window.showGameOver(winner.name, this.player1.score, this.player2.score);
+            window.showGameOver(winnerName, '', ''); // Pass empty strings for scores
         } else {
-            // Fallback to direct DOM manipulation
-            document.getElementById('winnerDisplay').textContent = `🎉 ${winner.name} Wins!`;
-            document.getElementById('finalScore').textContent = `Final Score: ${this.player1.name} ${this.player1.score} - ${this.player2.score} ${this.player2.name}`;
+            // Fallback to direct DOM manipulation (without scores)
+            document.getElementById('winnerDisplay').textContent = `🎉 ${winnerName} Wins!`;
+            document.getElementById('finalScore').textContent = ''; // No score display
             document.getElementById('gameOverScreen').classList.remove('hidden');
         }
     }
