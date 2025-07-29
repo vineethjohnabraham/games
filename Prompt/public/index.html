@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Generator Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-magic"></i> Prompt Generator Tool</h1>
+            <p>Create structured, effective prompts for large language models</p>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <form id="promptForm">
+                    <div class="form-group">
+                        <label for="objective">
+                            <i class="fas fa-bullseye"></i>
+                            Objective / Task <span class="required">*</span>
+                        </label>
+                        <textarea 
+                            id="objective" 
+                            name="objective" 
+                            placeholder="What do you want the model to do? (e.g., Write a LinkedIn post, Analyze data, Create a summary...)"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="audience">
+                            <i class="fas fa-users"></i>
+                            Target Audience <span class="optional">(optional)</span>
+                        </label>
+                        <textarea 
+                            id="audience" 
+                            name="audience" 
+                            placeholder="Who is your target audience? (e.g., working professionals, tech enthusiasts, college students, parents, executives...)"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="context">
+                            <i class="fas fa-info-circle"></i>
+                            Context / Background
+                        </label>
+                        <textarea 
+                            id="context" 
+                            name="context" 
+                            placeholder="Why is this needed? Any relevant background information, situation, or project details..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="constraints">
+                            <i class="fas fa-cog"></i>
+                            Constraints / Output Format
+                        </label>
+                        <textarea 
+                            id="constraints" 
+                            name="constraints" 
+                            placeholder="Length requirements, tone, structure, language, do's and don'ts..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="brandVoice">
+                                <i class="fas fa-microphone"></i>
+                                Brand Voice / Tone
+                            </label>
+                            <select id="brandVoice" name="brandVoice">
+                                <option value="">Select tone (optional)</option>
+                                <option value="professional">Professional & Formal</option>
+                                <option value="friendly">Friendly & Approachable</option>
+                                <option value="confident">Confident & Authoritative</option>
+                                <option value="playful">Playful & Fun</option>
+                                <option value="humble">Humble & Modest</option>
+                                <option value="aspirational">Aspirational & Inspiring</option>
+                                <option value="conversational">Conversational & Casual</option>
+                                <option value="empathetic">Empathetic & Understanding</option>
+                                <option value="bold">Bold & Direct</option>
+                                <option value="sophisticated">Sophisticated & Elegant</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cta">
+                                <i class="fas fa-hand-point-right"></i>
+                                Call to Action <span class="optional">(optional)</span>
+                            </label>
+                            <select id="cta" name="cta">
+                                <option value="">No specific CTA</option>
+                                <option value="engage">Encourage engagement (likes, comments, shares)</option>
+                                <option value="visit">Drive traffic to website/link</option>
+                                <option value="contact">Request contact/inquiry</option>
+                                <option value="purchase">Encourage purchase/sign-up</option>
+                                <option value="learn">Promote learning/education</option>
+                                <option value="subscribe">Request subscription/follow</option>
+                                <option value="download">Promote download/trial</option>
+                                <option value="attend">Encourage event attendance</option>
+                                <option value="apply">Request application/submission</option>
+                                <option value="custom">Custom CTA (specify in constraints)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="examples">
+                            <i class="fas fa-lightbulb"></i>
+                            Examples / Reference Style <span class="optional">(optional)</span>
+                        </label>
+                        <textarea 
+                            id="examples" 
+                            name="examples" 
+                            placeholder="Good examples, preferred style, things to avoid..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="variations">
+                                <i class="fas fa-clone"></i>
+                                Number of Variations <span class="optional">(optional)</span>
+                            </label>
+                            <select id="variations" name="variations">
+                                <option value="1">1 (default)</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="stepByStep" name="stepByStep">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-list-ol"></i>
+                                Step-by-Step Output
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-magic"></i>
+                            Generate Prompt
+                        </button>
+                        <button type="button" id="clearForm" class="btn-secondary">
+                            <i class="fas fa-trash"></i>
+                            Clear All
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="preview-section">
+                <div class="preview-header">
+                    <h3><i class="fas fa-eye"></i> Live Preview</h3>
+                    <div class="preview-actions">
+                        <button id="editPrompt" class="btn-edit" title="Edit Prompt">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button id="copyPrompt" class="btn-copy" title="Copy to Clipboard">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="previewContent" class="preview-content">
+                    <div class="preview-placeholder">
+                        <i class="fas fa-magic"></i>
+                        <p>Your generated prompt will appear here as you fill out the form above.</p>
+                        <p>Start by entering your objective or task!</p>
+                    </div>
+                </div>
+                <div id="editablePreview" class="editable-preview" style="display: none;">
+                    <textarea id="editablePrompt" placeholder="Edit your prompt here..."></textarea>
+                    <div class="edit-actions">
+                        <button id="saveEdit" class="btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                        <button id="cancelEdit" class="btn-secondary">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="outputSection" class="output-section" style="display: none;">
+            <div class="output-header">
+                <h3><i class="fas fa-check-circle"></i> Generated Prompt</h3>
+                <div class="output-actions">
+                    <button id="copyFinalPrompt" class="btn-copy">
+                        <i class="fas fa-copy"></i>
+                        Copy
+                    </button>
+                    <button id="downloadPrompt" class="btn-download">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </button>
+                    <button id="newPrompt" class="btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Create New
+                    </button>
+                </div>
+            </div>
+            <div id="finalPrompt" class="final-prompt"></div>
+        </div>
+
+        <footer class="footer">
+            <p>Built with ❤️ for better AI interactions</p>
+        </footer>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
