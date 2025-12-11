@@ -1,4 +1,4 @@
-# 🏏 Paper Cricket
+# 🏏 Book Cricket
 
 A lightweight, fully-featured HTML/JavaScript cricket game that works perfectly on both desktop and mobile devices.
 
@@ -175,3 +175,4 @@ Created as a simple, accessible cricket simulation game for cricket enthusiasts.
 ---
 
 **Enjoy playing Paper Cricket! 🏏**
+
