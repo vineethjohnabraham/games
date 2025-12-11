@@ -1,0 +1,828 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Page Management */
+.page {
+    display: none;
+    min-height: 100vh;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Home Page */
+.game-title {
+    text-align: center;
+    font-size: 3.5rem;
+    color: white;
+    margin: 60px 0 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.home-options {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Buttons */
+.btn-large {
+    padding: 30px 40px;
+    font-size: 1.8rem;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-weight: 600;
+}
+
+.btn-large:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+
+.btn-large:active {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.btn-icon {
+    font-size: 2.5rem;
+}
+
+.btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Setup Sections */
+.setup-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.setup-section h2, .setup-section h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.radio-group input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Teams Grid */
+.teams-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.team-players h4 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.player-input {
+    margin-bottom: 10px;
+}
+
+.player-input input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Toss Section */
+.toss-section {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.toss-result {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.toss-result p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Gameplay Screen */
+.gameplay-header {
+    background: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.match-info h3 {
+    color: #667eea;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.match-info p {
+    color: #f5576c;
+    font-weight: 600;
+}
+
+.btn-icon-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: #f0f0f0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-icon-btn:hover {
+    background: #e0e0e0;
+    transform: scale(1.1);
+}
+
+.gameplay-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.panel {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.panel h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+/* Batting Panel */
+.score-display {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.score-big {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.overs-display {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.current-batsmen {
+    background: #f8f9ff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.batsman-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.batsman-item.striker {
+    background: #667eea;
+    color: white;
+    font-weight: 600;
+}
+
+.batting-lineup {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.lineup-player {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+}
+
+.lineup-player.out {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+/* Action Panel */
+.action-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.last-ball-result {
+    font-size: 2.5rem;
+    font-weight: bold;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: popIn 0.3s ease-out;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.btn-bowl {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-bowl:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+}
+
+.btn-bowl:active {
+    transform: scale(0.95);
+}
+
+.extras-section {
+    width: 100%;
+    text-align: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.extras-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-extra {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 2px solid #f093fb;
+    background: white;
+    color: #f093fb;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-extra:hover {
+    background: #f093fb;
+    color: white;
+}
+
+.partnership-info {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* Bowling Panel */
+.current-bowler {
+    background: #f8f9ff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.current-bowler h4 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.current-bowler p {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.bowler-stats p {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: normal;
+}
+
+.over-progress h4 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.over-balls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-height: 40px;
+}
+
+.ball-result {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background: #e0e0e0;
+}
+
+.ball-result.dot { background: #b0b0b0; color: white; }
+.ball-result.run { background: #4CAF50; color: white; }
+.ball-result.four { background: #2196F3; color: white; }
+.ball-result.six { background: #9C27B0; color: white; }
+.ball-result.wicket { background: #f44336; color: white; }
+.ball-result.wide { background: #FF9800; color: white; }
+.ball-result.noball { background: #FF5722; color: white; }
+
+.bowling-lineup {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    animation: fadeIn 0.2s;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.modal-large {
+    max-width: 800px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-close {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background: #f0f0f0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.btn-close:hover {
+    background: #e0e0e0;
+}
+
+/* Batsman/Bowler Selection */
+.batsman-list, .bowler-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 20px 0;
+}
+
+.selectable-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.selectable-item:hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+}
+
+.selectable-item.selected {
+    border-color: #667eea;
+    background: #667eea;
+    color: white;
+}
+
+.selectable-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f5f5f5;
+}
+
+/* Scorecard */
+.scorecard-content {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.scorecard-section {
+    margin-bottom: 30px;
+}
+
+.scorecard-section h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 8px;
+}
+
+.scorecard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.scorecard-table th {
+    background: #f8f9ff;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #667eea;
+}
+
+.scorecard-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.scorecard-table tr:hover {
+    background: #fafafa;
+}
+
+/* Tournament */
+.tournament-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.points-table-grid {
+    overflow-x: auto;
+}
+
+.match-card {
+    background: #f8f9ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 4px solid #667eea;
+}
+
+.match-card h4 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.match-card.completed {
+    border-left-color: #4CAF50;
+}
+
+.match-card.upcoming {
+    border-left-color: #FF9800;
+}
+
+/* Team Input Container */
+.tournament-team-input {
+    background: #f8f9ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.tournament-team-input h4 {
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .gameplay-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .teams-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .game-title {
+        font-size: 2.5rem;
+        margin: 40px 0 30px;
+    }
+
+    .btn-large {
+        padding: 25px 30px;
+        font-size: 1.5rem;
+    }
+
+    .btn-bowl {
+        width: 160px;
+        height: 160px;
+        font-size: 1.5rem;
+    }
+
+    .score-big {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .game-title {
+        font-size: 2rem;
+    }
+
+    .btn-large {
+        padding: 20px 25px;
+        font-size: 1.3rem;
+    }
+
+    .btn-icon {
+        font-size: 2rem;
+    }
+
+    .manual-buttons {
+        gap: 6px;
+    }
+
+    .btn-manual {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+}
+
+/* Animations */
+.animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Score Colors */
+.result-0 { color: #757575; }
+.result-1, .result-2, .result-3 { color: #4CAF50; }
+.result-4 { color: #2196F3; }
+.result-6 { color: #9C27B0; }
+.result-W { color: #f44336; }
+
+/* Print Styles for Scorecard */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    
+    #scorecardContent, #scorecardContent * {
+        visibility: visible;
+    }
+    
+    #scorecardContent {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

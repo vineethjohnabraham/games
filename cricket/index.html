@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Cricket</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Home Page -->
+    <div id="homePage" class="page active">
+        <div class="container">
+            <h1 class="game-title">🏏 PAPER CRICKET</h1>
+            <div class="home-options">
+                <button class="btn-large btn-primary" onclick="startQuickGame()">
+                    <span class="btn-icon">⚡</span>
+                    Quick Game
+                </button>
+                <button class="btn-large btn-secondary" onclick="startTournament()">
+                    <span class="btn-icon">🏆</span>
+                    Tournament Mode
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Game Setup -->
+    <div id="quickGameSetup" class="page">
+        <div class="container">
+            <h2>Quick Game Setup</h2>
+            
+            <!-- Team Names -->
+            <div class="setup-section">
+                <h3>Team Names</h3>
+                <div class="input-group">
+                    <label>Team A:</label>
+                    <input type="text" id="teamAName" placeholder="Enter Team A name" value="India">
+                </div>
+                <div class="input-group">
+                    <label>Team B:</label>
+                    <input type="text" id="teamBName" placeholder="Enter Team B name" value="Australia">
+                </div>
+            </div>
+
+            <!-- Match Type -->
+            <div class="setup-section">
+                <h3>Match Type</h3>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="matchType" value="limited" checked>
+                        Limited Overs
+                    </label>
+                    <label>
+                        <input type="radio" name="matchType" value="test">
+                        Test Match
+                    </label>
+                </div>
+                <div id="oversSelection" class="input-group">
+                    <label>Number of Overs (1-50):</label>
+                    <input type="number" id="oversInput" min="1" max="50" value="5">
+                </div>
+            </div>
+
+            <!-- Playing XI Entry -->
+            <div class="setup-section">
+                <h3>Playing XI</h3>
+                <div class="teams-grid">
+                    <div class="team-players">
+                        <h4 id="teamANameDisplay">Team A</h4>
+                        <div id="teamAPlayers"></div>
+                    </div>
+                    <div class="team-players">
+                        <h4 id="teamBNameDisplay">Team B</h4>
+                        <div id="teamBPlayers"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goHome()">Back</button>
+                <button class="btn btn-primary" onclick="proceedToToss()">Proceed to Toss</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toss Page -->
+    <div id="tossPage" class="page">
+        <div class="container">
+            <h2>Toss</h2>
+            <div class="toss-section">
+                <div id="tossResult" class="toss-result hidden">
+                    <p id="tossWinnerText"></p>
+                    <div class="button-group">
+                        <button class="btn btn-large btn-primary" onclick="chooseToBat()">Bat First</button>
+                        <button class="btn btn-large btn-secondary" onclick="chooseToBowl()">Bowl First</button>
+                    </div>
+                </div>
+                <button id="tossButton" class="btn-large btn-primary" onclick="performToss()">
+                    🪙 Toss
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Batsman Selection Modal -->
+    <div id="batsmanSelectionModal" class="modal">
+        <div class="modal-content">
+            <h3>Select Opening Batsmen</h3>
+            <p>Choose two batsmen to open the innings:</p>
+            <div id="batsmanList" class="batsman-list"></div>
+            <button class="btn btn-primary" onclick="confirmBatsmen()">Start Innings</button>
+        </div>
+    </div>
+
+    <!-- Next Batsman Modal -->
+    <div id="nextBatsmanModal" class="modal">
+        <div class="modal-content">
+            <h3>Wicket! Select Next Batsman</h3>
+            <p id="dismissalInfo"></p>
+            <div id="nextBatsmanList" class="batsman-list"></div>
+            <button class="btn btn-primary" onclick="confirmNextBatsman()">Continue</button>
+        </div>
+    </div>
+
+    <!-- Bowler Selection Modal -->
+    <div id="bowlerSelectionModal" class="modal">
+        <div class="modal-content">
+            <h3>Select Next Bowler</h3>
+            <p>Over complete! Choose the next bowler:</p>
+            <div id="bowlerList" class="bowler-list"></div>
+            <button class="btn btn-primary" onclick="confirmBowler()">Continue</button>
+        </div>
+    </div>
+
+    <!-- Gameplay Screen -->
+    <div id="gameplayScreen" class="page">
+        <div class="gameplay-header">
+            <button class="btn-icon-btn" onclick="toggleScorecard()">📊</button>
+            <div class="match-info">
+                <h3 id="matchTitle"></h3>
+                <p id="targetInfo"></p>
+            </div>
+            <button class="btn-icon-btn" onclick="toggleSettings()">⚙️</button>
+        </div>
+
+        <div class="gameplay-container">
+            <!-- Batting Panel -->
+            <div class="panel batting-panel">
+                <h3 id="battingTeamName">Batting</h3>
+                <div class="score-display">
+                    <div class="score-big" id="scoreDisplay">0/0</div>
+                    <div class="overs-display" id="oversDisplay">0.0 / 5</div>
+                </div>
+                <div class="current-batsmen">
+                    <div class="batsman-item striker">
+                        <span id="striker">Batsman 1</span>
+                        <span id="strikerScore">0 (0)</span>
+                    </div>
+                    <div class="batsman-item">
+                        <span id="nonStriker">Batsman 2</span>
+                        <span id="nonStrikerScore">0 (0)</span>
+                    </div>
+                </div>
+                <div class="batting-lineup" id="battingLineup"></div>
+            </div>
+
+            <!-- Action Panel -->
+            <div class="panel action-panel">
+                <div id="lastBallResult" class="last-ball-result"></div>
+                
+                <button id="bowlButton" class="btn-bowl" onclick="bowl()">
+                    🎾 BOWL
+                </button>
+
+                <div class="extras-section">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="extrasToggle">
+                        Enable Extras
+                    </label>
+                    <div id="extrasButtons" class="extras-buttons hidden">
+                        <button class="btn-extra" onclick="addExtra('wide')">Wide</button>
+                        <button class="btn-extra" onclick="addExtra('noball')">No Ball</button>
+                        <button class="btn-extra" onclick="addExtra('bye')">Bye</button>
+                        <button class="btn-extra" onclick="addExtra('legbye')">Leg Bye</button>
+                    </div>
+                </div>
+
+                <div class="partnership-info">
+                    <p id="partnershipDisplay">Partnership: 0 (0)</p>
+                </div>
+            </div>
+
+            <!-- Bowling Panel -->
+            <div class="panel bowling-panel">
+                <h3 id="bowlingTeamName">Bowling</h3>
+                <div class="current-bowler">
+                    <h4>Current Bowler</h4>
+                    <p id="bowlerName">Bowler 1</p>
+                    <div class="bowler-stats">
+                        <p id="bowlerOvers">Overs: 0.0</p>
+                        <p id="bowlerRuns">Runs: 0</p>
+                        <p id="bowlerWickets">Wickets: 0</p>
+                        <p id="bowlerEconomy">Economy: 0.00</p>
+                    </div>
+                </div>
+                <div class="over-progress">
+                    <h4>This Over</h4>
+                    <div id="overBalls" class="over-balls"></div>
+                </div>
+                <div class="bowling-lineup" id="bowlingLineup"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scorecard Modal -->
+    <div id="scorecardModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Scorecard</h2>
+                <button class="btn-close" onclick="toggleScorecard()">×</button>
+            </div>
+            <div id="scorecardContent" class="scorecard-content"></div>
+            <button class="btn btn-secondary" onclick="downloadScorecard()">📥 Download Scorecard</button>
+        </div>
+    </div>
+
+    <!-- Innings Complete Modal -->
+    <div id="inningsCompleteModal" class="modal">
+        <div class="modal-content">
+            <h2>Innings Complete!</h2>
+            <div id="inningsStats"></div>
+            <button class="btn btn-primary" onclick="startSecondInnings()">Start Second Innings</button>
+        </div>
+    </div>
+
+    <!-- Match Result Modal -->
+    <div id="matchResultModal" class="modal">
+        <div class="modal-content">
+            <h2>Match Complete!</h2>
+            <div id="matchResultContent"></div>
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="viewFinalScorecard()">View Scorecard</button>
+                <button class="btn btn-primary" onclick="goHome()">Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tournament Setup -->
+    <div id="tournamentSetup" class="page">
+        <div class="container">
+            <h2>Tournament Setup</h2>
+            
+            <div class="setup-section">
+                <h3>Tournament Details</h3>
+                <div class="input-group">
+                    <label>Number of Teams (2-8):</label>
+                    <input type="number" id="numTeams" min="2" max="8" value="4" onchange="generateTeamInputs()">
+                </div>
+                <div class="input-group">
+                    <label>Overs per Match:</label>
+                    <input type="number" id="tournamentOvers" min="1" max="50" value="5">
+                </div>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="tournamentFormat" value="roundrobin" checked>
+                        Round Robin
+                    </label>
+                    <label>
+                        <input type="radio" name="tournamentFormat" value="knockout">
+                        Knockout
+                    </label>
+                </div>
+            </div>
+
+            <div class="setup-section">
+                <h3>Team Names & Players</h3>
+                <div id="tournamentTeamsContainer"></div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goHome()">Back</button>
+                <button class="btn btn-primary" onclick="startTournamentMatches()">Start Tournament</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tournament Dashboard -->
+    <div id="tournamentDashboard" class="page">
+        <div class="container">
+            <h2>Tournament Dashboard</h2>
+            
+            <div class="tournament-tabs">
+                <button class="tab-btn active" onclick="showTab('schedule')">Schedule</button>
+                <button class="tab-btn" onclick="showTab('points')">Points Table</button>
+                <button class="tab-btn" onclick="showTab('results')">Results</button>
+            </div>
+
+            <div id="scheduleTab" class="tab-content active">
+                <h3>Match Schedule</h3>
+                <div id="scheduleList"></div>
+            </div>
+
+            <div id="pointsTab" class="tab-content">
+                <h3>Points Table</h3>
+                <div id="pointsTable"></div>
+            </div>
+
+            <div id="resultsTab" class="tab-content">
+                <h3>Match Results</h3>
+                <div id="resultsList"></div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goHome()">Exit Tournament</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <h3>Settings</h3>
+            <div class="settings-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="soundToggle" onchange="toggleSound()">
+                    Sound Effects
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="animationsToggle" checked onchange="toggleAnimations()">
+                    Animations
+                </label>
+            </div>
+            <button class="btn btn-primary" onclick="toggleSettings()">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
